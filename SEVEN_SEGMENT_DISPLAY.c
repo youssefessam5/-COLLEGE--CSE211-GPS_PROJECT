@@ -3,9 +3,19 @@
 #include "inc/GPIO_CNFG.h"
 #include "inc/GPIO.h"
 
-//DG1=12 PIN C5
-//DG2=9  PIN C6
-//DG3=8  PIN C7
+/***************************************************************
+*					DG12 -----------> C5
+*					DG2  -----------> C6
+*					DG3  -----------> C7
+*					
+*					A --------------> C4
+*					B --------------> D2
+*					C --------------> D3
+*					D --------------> E2
+*					E --------------> E3
+*					F --------------> E4
+*					G --------------> E5
+*****************************************************************/
 
 void vDISPLAY_ENABLE(uint8 DISNUM){
 	switch(DISNUM){
@@ -89,36 +99,96 @@ void vLED_WRITE(uint16 NUM){
 	}
 }
 
+void vRESET_PrevNumber(){
+	vGPIODATA_RESET(GPIOC, 4);
+	vGPIODATA_RESET(GPIOD, 2);
+	vGPIODATA_RESET(GPIOD, 3);
+	vGPIODATA_RESET(GPIOE, 2);
+	vGPIODATA_RESET(GPIOE, 3);
+	vGPIODATA_RESET(GPIOE, 4);
+	vGPIODATA_RESET(GPIOE, 5);
+}
+
 void vDIGIT_NUMBER(uint8 NUMBER){
 	switch(NUMBER){
 		case 0:
-			vGPIODATA_WRITE(GPIOB, 0X3F);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOD, 3);
+			vGPIODATA_SET(GPIOE, 2);
+			vGPIODATA_SET(GPIOE, 3);
+			vGPIODATA_SET(GPIOE, 4);
 			break;
 		case 1:
-			vGPIODATA_WRITE(GPIOB, 0X06);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOD, 3);
 			break;
 		case 2:
-			vGPIODATA_WRITE(GPIOB, 0XDB);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOE, 5);
+			vGPIODATA_SET(GPIOE, 3);
+			vGPIODATA_SET(GPIOE, 2);
 			break;
 		case 3:
-			vGPIODATA_WRITE(GPIOB, 0X4F);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOE, 5);
+			vGPIODATA_SET(GPIOD, 3);
+			vGPIODATA_SET(GPIOE, 2);
 			break;
 		case 4:
-			vGPIODATA_WRITE(GPIOB, 0X66);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOE, 4);
+			vGPIODATA_SET(GPIOE, 5);
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOD, 3);
 			break;
 		case 5:
-			vGPIODATA_WRITE(GPIOB, 0X6D);	
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOE, 4);
+			vGPIODATA_SET(GPIOE, 5);
+			vGPIODATA_SET(GPIOD, 3);
+			vGPIODATA_SET(GPIOE, 2);
 			break;
 		case 6:
-			vGPIODATA_WRITE(GPIOB, 0XFD);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOE, 4);
+			vGPIODATA_SET(GPIOE, 5);
+			vGPIODATA_SET(GPIOD, 3);
+			vGPIODATA_SET(GPIOE, 2);
+			vGPIODATA_SET(GPIOE, 3);
 			break;
 		case 7:
-			vGPIODATA_WRITE(GPIOB, 0X07);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOD, 3);
 			break;
 		case 8:
-			vGPIODATA_WRITE(GPIOB, 0XFF);
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOD, 3);
+			vGPIODATA_SET(GPIOE, 5);
+			vGPIODATA_SET(GPIOE, 4);
+			vGPIODATA_SET(GPIOE, 3);
+			vGPIODATA_SET(GPIOE, 2);
 			break;
 		case 9:
-			vGPIODATA_WRITE(GPIOB, 0XEF);
-			break;                                                                                                                   
+			vRESET_PrevNumber();
+			vGPIODATA_SET(GPIOC, 4);
+			vGPIODATA_SET(GPIOD, 2);
+			vGPIODATA_SET(GPIOD, 3);
+			vGPIODATA_SET(GPIOE, 5);
+			vGPIODATA_SET(GPIOE, 4);
+			vGPIODATA_SET(GPIOE, 2);
+			break;
+	}
 }
