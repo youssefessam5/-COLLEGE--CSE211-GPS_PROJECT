@@ -2,6 +2,7 @@
 #include "inc/STD_TYPES.h"
 #include "inc/GPIO_CNFG.h"
 #include "inc/GPIO.h"
+#include "inc/LCD.h"
 
 /***************************************************************
 *					DG12 -----------> C5
@@ -46,15 +47,22 @@ void vDISPLAY_DISABLE(uint8 DISNUM){
 }
 
 
+
+
+
+
+
+
+
+// IF YOU INSERT A DIGIT ABOVE 999 IT WON'T WORK
 void vLED_WRITE(uint16 NUM){
-	int x = 500;	  // FOR THE MAIN LOOP 100 - 1 SECOND
-	int count = 0; 	  // FOR INTERNAL LOOP
+	int x = 100; // FOR THE MAIN LOOP 100 - 1 SECOND
+	int count = 0; // FOR INTERNAL LOOP
 	int Number = 0;
 	int remainder = 0;
 	if(NUM > 999)
 		return;
-	while(x--){	 // SHOULD BE WHILE(x--)
-	while(1){
+	while(x--){ // SHOULD BE WHILE(x--)
 		count = 10000;
 		Number = NUM;
 		remainder = Number % 100;
@@ -99,6 +107,7 @@ void vLED_WRITE(uint16 NUM){
 	}
 }
 
+
 void vRESET_PrevNumber(){
 	vGPIODATA_RESET(GPIOC, 4);
 	vGPIODATA_RESET(GPIOD, 2);
@@ -109,86 +118,3 @@ void vRESET_PrevNumber(){
 	vGPIODATA_RESET(GPIOE, 5);
 }
 
-void vDIGIT_NUMBER(uint8 NUMBER){
-	switch(NUMBER){
-		case 0:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOD, 3);
-			vGPIODATA_SET(GPIOE, 2);
-			vGPIODATA_SET(GPIOE, 3);
-			vGPIODATA_SET(GPIOE, 4);
-			break;
-		case 1:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOD, 3);
-			break;
-		case 2:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOE, 5);
-			vGPIODATA_SET(GPIOE, 3);
-			vGPIODATA_SET(GPIOE, 2);
-			break;
-		case 3:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOE, 5);
-			vGPIODATA_SET(GPIOD, 3);
-			vGPIODATA_SET(GPIOE, 2);
-			break;
-		case 4:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOE, 4);
-			vGPIODATA_SET(GPIOE, 5);
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOD, 3);
-			break;
-		case 5:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOE, 4);
-			vGPIODATA_SET(GPIOE, 5);
-			vGPIODATA_SET(GPIOD, 3);
-			vGPIODATA_SET(GPIOE, 2);
-			break;
-		case 6:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOE, 4);
-			vGPIODATA_SET(GPIOE, 5);
-			vGPIODATA_SET(GPIOD, 3);
-			vGPIODATA_SET(GPIOE, 2);
-			vGPIODATA_SET(GPIOE, 3);
-			break;
-		case 7:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOD, 3);
-			break;
-		case 8:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOD, 3);
-			vGPIODATA_SET(GPIOE, 5);
-			vGPIODATA_SET(GPIOE, 4);
-			vGPIODATA_SET(GPIOE, 3);
-			vGPIODATA_SET(GPIOE, 2);
-			break;
-		case 9:
-			vRESET_PrevNumber();
-			vGPIODATA_SET(GPIOC, 4);
-			vGPIODATA_SET(GPIOD, 2);
-			vGPIODATA_SET(GPIOD, 3);
-			vGPIODATA_SET(GPIOE, 5);
-			vGPIODATA_SET(GPIOE, 4);
-			vGPIODATA_SET(GPIOE, 2);
-			break;
-	}
-}
